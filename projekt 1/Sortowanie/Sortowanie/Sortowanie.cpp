@@ -58,7 +58,7 @@ int main()
 		suma = 0;
 		for (int i = 1; i <= 5; ++i)
 		{
-			wypelnienie_tablicy(t, n);
+			//wypelnienie_tablicy(t, n);
 			random_shuffle(t, t + n);
 			//czas = 0;
 
