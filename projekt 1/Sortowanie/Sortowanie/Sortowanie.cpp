@@ -65,6 +65,7 @@ void proste_wstawianie1(int *t, int n)
 		}
 		t[j + 1] = x;
 	}
+	return;
 }
 
 void proste_wybieranie(int *t, int n)
@@ -86,6 +87,7 @@ void proste_wybieranie(int *t, int n)
 		t[k] = t[i];
 		t[i] = x;
 	}
+	return;
 }
 
 void shell(int *t, int n)
@@ -94,15 +96,15 @@ void shell(int *t, int n)
 	int x,j;
 	while (h < (n / 9))
 	{
-		h = 3 * h + 1;
+		h = (3 * h) + 1;
 	}
 	while (h > 0)
 	{
-		for (int i = h + 1; i < n;i++)
+		for (int i = h; i < n;i++)
 		{
 			x = t[i];
 			j = i;
-			while (j >= h + 1 && x < t[j - h])
+			while ((j >= h) && (x < t[j - h]))
 			{
 				t[j] = t[j - h];
 				j = j - h;
@@ -111,7 +113,34 @@ void shell(int *t, int n)
 		}
 		h = h / 3;
 	}
+	return;
 }
+
+void sortowanie_szybkie(int* t, int d, int g)
+{
+	int klucz;
+	int s;
+
+	if (d < g)
+	{
+		klucz = t[d];
+		s = d;
+
+		for (int i = d; i <= g; i++)
+		{
+			if (t[i] < klucz)
+			{
+				s = s + 1;
+				swap(t[s], t[i]);
+			}
+		}
+		swap(t[d], t[s]);
+		sortowanie_szybkie(t, d, s - 1);
+		sortowanie_szybkie(t, s + 1, g);
+	}
+	return;
+}
+
 
 int main()
 {
@@ -138,7 +167,9 @@ int main()
 			start = clock();
 			//sortowanie_babelkowe(t, n);
 			//proste_wstawianie1(t, n);
-			proste_wybieranie(t, n);
+			//proste_wybieranie(t, n);
+			//shell(t, n);
+			sortowanie_szybkie(t, 0, n-1);
 
 			stop = clock();
 			czas = stop-start;
@@ -157,7 +188,9 @@ int main()
 		srednia = suma /= 5;
 		//cout <<licznik<<"*10^3: "<<"sredni czas-babelkowe= " << srednia << endl;
 		//cout << licznik << "*10^3: " << "sredni czas-wstawianie1 " << srednia << endl;
-		cout << licznik << "*10^3: " << "sredni czas-wybieranie= " << srednia << endl;
+		//cout << licznik << "*10^3: " << "sredni czas-wybieranie= " << srednia << endl;
+		//cout << licznik << "*10^3: " << "sredni czas-shell= " << srednia << endl;
+		cout << licznik << "*10^3: " << "sredni czas-szybkie= " << srednia << endl;
 
 		licznik *= 2;
 
