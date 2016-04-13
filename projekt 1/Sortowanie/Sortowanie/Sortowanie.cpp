@@ -9,7 +9,7 @@ void wypelnienie_tablicy(int *t, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		t[i] = i++;
+		t[i] = i;
 	}
 	return;
 }
@@ -126,7 +126,7 @@ void sortowanie_szybkie(int* t, int d, int g)
 		klucz = t[d];
 		s = d;
 
-		for (int i = d; i <= g; i++)
+		for (int i = d + 1; i < g; i++)
 		{
 			if (t[i] < klucz)
 			{
@@ -135,12 +135,62 @@ void sortowanie_szybkie(int* t, int d, int g)
 			}
 		}
 		swap(t[d], t[s]);
-		sortowanie_szybkie(t, d, s - 1);
+		sortowanie_szybkie(t, d, s);
 		sortowanie_szybkie(t, s + 1, g);
 	}
 	return;
 }
 
+void szybkie_wst(int *t, int d, int g) 
+{
+	int klucz;
+	int s;
+	int k, x;
+
+	if (d < g)
+	{
+		klucz = t[d];
+		s = d;
+
+		if ((g - d) < 30)
+		{
+			int x;
+			int j;
+
+			for (int i = d; i < g; i++)
+			{
+				x = t[i];
+				j = i - 1;
+				while ((j >= 0) && (x < t[j]))
+				{
+					t[j + 1] = t[j];
+					j = j - 1;
+				}
+				t[j + 1] = x;
+			}
+			return;
+		}
+
+		for (int i = d + 1; i < g; i++)
+		{
+			if (t[i] < klucz)
+			{
+				s = s + 1;
+				swap(t[s], t[i]);
+			}
+		}
+		swap(t[d], t[s]);
+		szybkie_wst(t, d, s);
+		szybkie_wst(t, s + 1, g);
+
+
+	}
+}
+
+void mediana()
+{
+
+}
 
 int main()
 {
@@ -169,7 +219,8 @@ int main()
 			//proste_wstawianie1(t, n);
 			//proste_wybieranie(t, n);
 			//shell(t, n);
-			sortowanie_szybkie(t, 0, n-1);
+			sortowanie_szybkie(t, 0, n);
+			//szybkie_wst(t, 0, n);
 
 			stop = clock();
 			czas = stop-start;

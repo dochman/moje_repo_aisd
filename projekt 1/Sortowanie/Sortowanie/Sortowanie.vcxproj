@@ -148,6 +148,9 @@
   <ItemGroup>
     <ClCompile Include="Sortowanie.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\..\..\..\Desktop\wynikiszybkie.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
