@@ -1,0 +1,43 @@
+1*10^3: sredni czas-szybkie= 0
+
+2*10^3: sredni czas-szybkie= 0.0002
+
+4*10^3: sredni czas-szybkie= 0.0002
+
+8*10^3: sredni czas-szybkie= 0.0006
+
+16*10^3: sredni czas-szybkie= 0.001
+
+32*10^3: sredni czas-szybkie= 0.0024
+
+64*10^3: sredni czas-szybkie= 0.0054
+
+128*10^3: sredni czas-szybkie= 0.0108
+
+256*10^3: sredni czas-szybkie= 0.022
+
+512*10^3: sredni czas-szybkie= 0.0468
+
+1024*10^3: sredni czas-szybkie= 0.1002
+
+2048*10^3: sredni czas-szybkie= 0.214
+
+4096*10^3: sredni czas-szybkie= 0.4484
+
+8192*10^3: sredni czas-szybkie= 0.9374
+
+16384*10^3: sredni czas-szybkie= 1.9504
+
+32768*10^3: sredni czas-szybkie= 4.0706
+
+65536*10^3: sredni czas-szybkie= 8.6476
+
+131072*10^3: sredni czas-szybkie=17.7341
+
+262144*10^3: sredni czas-szybkie=
+
+
+
+
+
+
