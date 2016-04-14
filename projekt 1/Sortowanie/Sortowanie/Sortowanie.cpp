@@ -145,7 +145,6 @@ void szybkie_wst(int *t, int d, int g)
 {
 	int klucz;
 	int s;
-	int k, x;
 
 	if (d < g)
 	{
@@ -187,9 +186,48 @@ void szybkie_wst(int *t, int d, int g)
 	}
 }
 
-void mediana()
+void sort_szybkie_mediana(int *t, int d, int g) // klucz jako mediana trzech elementow
 {
+	int klucz;
+	int s;
 
+	if (d < g)
+	{
+		    // obliczanie mediany
+		if (t[(d + g) / 2] > t[d] && t[(d + g) / 2] < t[g])
+		{
+			swap(t[(d + g) / 2], t[d]);
+		}
+		else if (t[(d + g) / 2]< t[d] && t[(d + g) / 2] > t[g])
+		{
+			swap(t[(d + g) / 2], t[d]);
+		}
+		else if (t[(d + g) / 2] > t[g] && t[g] > t[d])
+		{
+			swap(t[d], t[g]);
+		}
+		else if (t[(d + g) / 2] < t[g] && t[g] < t[d])
+		{
+			swap(t[d], t[g]);
+		}
+
+			klucz = t[d];
+			s = d;
+
+			for (int i = d + 1; i < g; i++)
+			{
+				if (t[i] < klucz)
+				{
+					s = s + 1;
+					swap(t[s], t[i]);
+				}
+			}
+			swap(t[d], t[s]);
+			sort_szybkie_mediana(t, d, s);
+			sort_szybkie_mediana(t, s + 1, g);
+
+		return;
+	}
 }
 
 int main()
@@ -215,12 +253,13 @@ int main()
 			//czas = 0;
 
 			start = clock();
-			//sortowanie_babelkowe(t, n);
+			sortowanie_babelkowe(t, n);
 			//proste_wstawianie1(t, n);
 			//proste_wybieranie(t, n);
 			//shell(t, n);
-			sortowanie_szybkie(t, 0, n);
+			//sortowanie_szybkie(t, 0, n);
 			//szybkie_wst(t, 0, n);
+			//sort_szybkie_mediana(t, 0, n);
 
 			stop = clock();
 			czas = stop-start;
@@ -237,11 +276,13 @@ int main()
 
 
 		srednia = suma /= 5;
-		//cout <<licznik<<"*10^3: "<<"sredni czas-babelkowe= " << srednia << endl;
+		cout <<licznik<<"*10^3: "<<"sredni czas-babelkowe= " << srednia << endl;
 		//cout << licznik << "*10^3: " << "sredni czas-wstawianie1 " << srednia << endl;
 		//cout << licznik << "*10^3: " << "sredni czas-wybieranie= " << srednia << endl;
 		//cout << licznik << "*10^3: " << "sredni czas-shell= " << srednia << endl;
-		cout << licznik << "*10^3: " << "sredni czas-szybkie= " << srednia << endl;
+		//cout << licznik << "*10^3: " << "sredni czas-szybkie= " << srednia << endl;
+		//cout << licznik << "*10^3: " << "sredni czas-szybkie ze wstawianiem= " << srednia << endl;
+		//cout << licznik << "*10^3: " << "sredni czas-szybkie z mediana= " << srednia << endl;
 
 		licznik *= 2;
 
