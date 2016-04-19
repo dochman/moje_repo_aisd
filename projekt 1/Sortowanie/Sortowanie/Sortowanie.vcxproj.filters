@@ -20,8 +20,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\..\..\..\Desktop\wynikiszybkie.txt">
+    <None Include="..\..\..\..\..\..\Desktop\Sprawozdanie AiSD - Daniel Ochman T1.pdf">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>

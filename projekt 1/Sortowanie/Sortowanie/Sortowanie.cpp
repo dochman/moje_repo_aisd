@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//Daniel Ochman Teleinformatyka sem.2 œroda nieparzysta
 
 void wypelnienie_tablicy(int *t, int n)
 {
@@ -243,14 +244,12 @@ int main()
 
 	wypelnienie_tablicy(t, n);
 
-	while (true)
+	while (true)  //nale¿y odkomentowaæ odpowiedni¹ czêœæ wg potrzeb
 	{
 		suma = 0;
 		for (int i = 1; i <= 5; ++i)
 		{
-			//wypelnienie_tablicy(t, n);
 			random_shuffle(t, t + n);
-			//czas = 0;
 
 			start = clock();
 			sortowanie_babelkowe(t, n);
