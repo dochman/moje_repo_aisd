@@ -3,7 +3,6 @@
 #include <time.h>
 
 using namespace std;
-
 //Daniel Ochman Teleinformatyka sem.2 sroda nieparzysta
 
 void wypelnienie_tablicy_mieszajacej(int *t, int n)
@@ -31,24 +30,26 @@ int h(int x, int i, int m) //m to rozmiar tablicy mieszajacej
 	return -1;
 }
 
-int hash_al_wstaw(int *t, int m, int x)   //m to rozmiar tablicy mieszajacej
+bool hash_al_wstaw(int *t, int m, int x, int & wywolan)   //m to rozmiar tablicy mieszajacej
 {
 	int k;
-
+	
 	for (int i = 0; i < m; i++)
 	{
+		wywolan++;
 		k = h(x, i, m);
-		if (t[i] == -1)
+		if (t[k] == -1)
 		{
-			t[i] = k;
-			return i++;
+			t[k] = x;
+			return true;
 		}
 	}
-	return -1;
+	return false;
 }
 
 int main()
 {
+	srand(time(NULL));
 	//tablica dynamiczna mieszajaca
 	int n_mieszajaca = 1048576;
 	int* t = new int[n_mieszajaca];
@@ -59,25 +60,67 @@ int main()
 	wypelnienie_tablicy_dane(tab, n_dane);
 	random_shuffle(tab, tab + n_dane);
 
-	float suma = 0;
-	float srednia = 0;
-	int czas = 1;
+	double srednia = 0;
+	double czas = 1;
 	clock_t start, stop;
 	int probka = 10000;
-	int liczba_prob = 0;
+	double liczba_prob = 0;
+	int wywolan = 0;
+	int nowy_rozmiar;
 
-	start = clock();
+	double procentowo = 0.0;
 
-	for (int i = 0; i < probka; i++)
+	while (procentowo != 0.9)
 	{
-		liczba_prob = hash_al_wstaw(t, n_mieszajaca, tab[i]);
+		nowy_rozmiar = n_mieszajaca*procentowo;
+
+		for (int i = 0;i < n_mieszajaca;i++)
+		{
+			t[i] = -1;
+		}
+
+		for (int i = 0;i < nowy_rozmiar;i++)
+		{
+			hash_al_wstaw(t, n_mieszajaca, tab[i], wywolan);
+		}
+
+		wywolan = 0;
+
+		start = clock();
+		for (int i = nowy_rozmiar; i < (nowy_rozmiar+probka); i++)
+		{
+			if (hash_al_wstaw(t, n_mieszajaca, tab[i], wywolan) == false)
+			{
+				cout << "Nie udalo sie wstawic do tablicy" << endl;
+				return -1;
+			}
+		}
+		stop = clock();
+		czas = (stop - start) / CLOCKS_PER_SEC;
+		srednia = czas / probka;
+		liczba_prob = wywolan / probka;
+		cout << "Sredni czas wstawiania= " << srednia << " s, udalo sie po " << wywolan << " probach" << endl;
+
+		procentowo += 0.1;
+
 	}
 
-	stop = clock();
-	czas = stop - start;
-	cout << liczba_prob/probka << endl;
-	cout<< (czas /(float)CLOCKS_PER_SEC);
 
 	delete[] t;
+	delete[] tab;
 	return 0;
 }
+
+/*
+Sredni czas wstawiania= 0 s, udalo sie po 10035 probach
+Sredni czas wstawiania= 0 s, udalo sie po 11064 probach
+Sredni czas wstawiania= 0 s, udalo sie po 12726 probach
+Sredni czas wstawiania= 0 s, udalo sie po 15020 probach
+Sredni czas wstawiania= 0 s, udalo sie po 18274 probach
+Sredni czas wstawiania= 0 s, udalo sie po 24141 probach
+Sredni czas wstawiania= 0 s, udalo sie po 34910 probach
+Sredni czas wstawiania= 0 s, udalo sie po 59649 probach
+Sredni czas wstawiania= 0 s, udalo sie po 140649 probach
+Sredni czas wstawiania= 0 s, udalo sie po 1058731 probach
+Aby kontynuowaæ, naciœnij dowolny klawisz . . .
+*/
