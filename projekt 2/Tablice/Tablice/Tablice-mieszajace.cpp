@@ -111,7 +111,8 @@ int main()
 	return 0;
 }
 
-/*
+/* musze jeszcze podzielic przez 10000 i zadbac o ilosc miesjc po przecinku
+
 Sredni czas wstawiania= 0 s, udalo sie po 10035 probach
 Sredni czas wstawiania= 0 s, udalo sie po 11064 probach
 Sredni czas wstawiania= 0 s, udalo sie po 12726 probach
@@ -123,4 +124,4 @@ Sredni czas wstawiania= 0 s, udalo sie po 59649 probach
 Sredni czas wstawiania= 0 s, udalo sie po 140649 probach
 Sredni czas wstawiania= 0 s, udalo sie po 1058731 probach
 Aby kontynuowaæ, naciœnij dowolny klawisz . . .
-*/
+*/ 
