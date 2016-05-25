@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <time.h>
+#include <iomanip>
 
 using namespace std;
 //Daniel Ochman Teleinformatyka sem.2 sroda nieparzysta
@@ -47,6 +48,29 @@ bool hash_al_wstaw(int *t, int m, int x, int & wywolan)   //m to rozmiar tablicy
 	return false;
 }
 
+bool hash_al_szukaj(int *t, int m, int x, int & wywolanszukaj)
+{
+	int k;
+
+	for (int i = 0;i < m;i++)
+	{
+		wywolanszukaj++;
+		k = h(x, i, m);
+
+		if (t[k] == x)
+		{
+			return true;
+		}
+
+		if (t[k] == -1)
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
+
 int main()
 {
 	srand(time(NULL));
@@ -63,65 +87,83 @@ int main()
 	double srednia = 0;
 	double czas = 1;
 	clock_t start, stop;
-	int probka = 10000;
+    double probka = 10000;
 	double liczba_prob = 0;
 	int wywolan = 0;
-	int nowy_rozmiar;
+	int wywolanszukaj = 0;
+	int nowy_rozmiar=0;
+	double sredniaszukaj = 0;
+	double liczba_prob_szukaj;
+	int32_t r;
 
-	double procentowo = 0.0;
+	double procentowo=0.1;
 
-	while (procentowo != 0.9)
+	for (int i = 0;i < 9;i++)
 	{
 		nowy_rozmiar = n_mieszajaca*procentowo;
 
-		for (int i = 0;i < n_mieszajaca;i++)
+		for (int j = 0;j < n_mieszajaca;j++)
 		{
-			t[i] = -1;
+			t[j] = -1;
 		}
 
-		for (int i = 0;i < nowy_rozmiar;i++)
+		for (int w = 0;w < nowy_rozmiar;w++)
 		{
-			hash_al_wstaw(t, n_mieszajaca, tab[i], wywolan);
+			hash_al_wstaw(t, n_mieszajaca, tab[w], wywolan);
 		}
 
 		wywolan = 0;
 
 		start = clock();
-		for (int i = nowy_rozmiar; i < (nowy_rozmiar+probka); i++)
+		for (int n = nowy_rozmiar; n < (nowy_rozmiar + probka); n++)
 		{
-			if (hash_al_wstaw(t, n_mieszajaca, tab[i], wywolan) == false)
+			if (hash_al_wstaw(t, n_mieszajaca, tab[n], wywolan) == false)
 			{
 				cout << "Nie udalo sie wstawic do tablicy" << endl;
 				return -1;
 			}
 		}
 		stop = clock();
-		czas = (stop - start) / CLOCKS_PER_SEC;
+		czas = (stop - start) / (float)CLOCKS_PER_SEC;
 		srednia = czas / probka;
 		liczba_prob = wywolan / probka;
-		cout << "Sredni czas wstawiania= " << srednia << " s, udalo sie po " << wywolan << " probach" << endl;
+		cout.setf(ios::fixed);
+		//cout << "Sredni czas wstawiania= " << setprecision(7) <<srednia << " s, udalo sie po " <<setprecision(4)<<liczba_prob << " probach" << endl;
 
-		procentowo += 0.1;
+		///////////////////////////////////////////////////////////////szukanie
+		wywolanszukaj = 0;
+		start = clock();
+		for (int w = 0;w < probka;w++)
+		{
+			r = ((rand() & 0x7FFF) << 15) | (rand() & 0x7FFF);
+			r = r % nowy_rozmiar;
+			hash_al_szukaj(t, n_mieszajaca, tab[r], wywolanszukaj);
+		}
+		stop = clock();
+		czas = (stop - start) / (float)CLOCKS_PER_SEC;
+		sredniaszukaj = czas / probka;
+		liczba_prob_szukaj = wywolanszukaj / probka;
+		cout.setf(ios::fixed);
+		cout << "Sredni czas wstawiania= " << setprecision(7) <<sredniaszukaj << " s, udalo sie po " <<setprecision(4)<<liczba_prob_szukaj << " probach" << endl;
 
+		procentowo = procentowo + 0.1;	
 	}
-
 
 	delete[] t;
 	delete[] tab;
 	return 0;
 }
 
-/* musze jeszcze podzielic przez 10000 i zadbac o ilosc miesjc po przecinku
-
-Sredni czas wstawiania= 0 s, udalo sie po 10035 probach
-Sredni czas wstawiania= 0 s, udalo sie po 11064 probach
-Sredni czas wstawiania= 0 s, udalo sie po 12726 probach
-Sredni czas wstawiania= 0 s, udalo sie po 15020 probach
-Sredni czas wstawiania= 0 s, udalo sie po 18274 probach
-Sredni czas wstawiania= 0 s, udalo sie po 24141 probach
-Sredni czas wstawiania= 0 s, udalo sie po 34910 probach
-Sredni czas wstawiania= 0 s, udalo sie po 59649 probach
-Sredni czas wstawiania= 0 s, udalo sie po 140649 probach
-Sredni czas wstawiania= 0 s, udalo sie po 1058731 probach
+/* wstawianie
+Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.0044 probach
+Sredni czas wstawiania= 0.0000001 s, udalo sie po 1.1149 probach
+Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.2492 probach
+Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.4839 probach
+Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.8053 probach
+Sredni czas wstawiania= 0.0000001 s, udalo sie po 2.3857 probach
+Sredni czas wstawiania= 0.0000000 s, udalo sie po 3.4198 probach
+Sredni czas wstawiania= 0.0000001 s, udalo sie po 5.9712 probach
+Sredni czas wstawiania= 0.0000001 s, udalo sie po 13.9765 probach
+Sredni czas wstawiania= 0.0000004 s, udalo sie po 104.6798 probach
 Aby kontynuowaæ, naciœnij dowolny klawisz . . .
 */ 
