@@ -31,6 +31,21 @@ int h(int x, int i, int m) //m to rozmiar tablicy mieszajacej
 	return -1;
 }
 
+int h1(int x, int m)
+{
+	return x % m;
+}
+
+int h2(int x, int m)
+{
+	return (((x / m) % (m / 2)) * 2) + 1;
+}
+
+int hd(int x, int i, int m)
+{
+	return ((h1(x, m) + i*h2(x, m)) % m);
+}
+
 bool hash_al_wstaw(int *t, int m, int x, int & wywolan)   //m to rozmiar tablicy mieszajacej
 {
 	int k;
@@ -38,7 +53,8 @@ bool hash_al_wstaw(int *t, int m, int x, int & wywolan)   //m to rozmiar tablicy
 	for (int i = 0; i < m; i++)
 	{
 		wywolan++;
-		k = h(x, i, m);
+		//k = h(x, i, m);
+		k = hd(x, i, m);
 		if (t[k] == -1)
 		{
 			t[k] = x;
@@ -55,8 +71,8 @@ bool hash_al_szukaj(int *t, int m, int x, int & wywolanszukaj)
 	for (int i = 0;i < m;i++)
 	{
 		wywolanszukaj++;
-		k = h(x, i, m);
-
+		//k = h(x, i, m);
+		k = hd(x, i, m);
 		if (t[k] == x)
 		{
 			return true;
@@ -128,7 +144,7 @@ int main()
 		srednia = czas / probka;
 		liczba_prob = wywolan / probka;
 		cout.setf(ios::fixed);
-		//cout << "Sredni czas wstawiania= " << setprecision(7) <<srednia << " s, udalo sie po " <<setprecision(4)<<liczba_prob << " probach" << endl;
+		cout << "Sredni czas wstawiania= " << setprecision(7) <<srednia << " s, udalo sie po "<<setprecision(4)<<liczba_prob << " probach" << endl;
 
 		///////////////////////////////////////////////////////////////szukanie
 		wywolanszukaj = 0;
@@ -144,7 +160,7 @@ int main()
 		sredniaszukaj = czas / probka;
 		liczba_prob_szukaj = wywolanszukaj / probka;
 		cout.setf(ios::fixed);
-		cout << "Sredni czas wstawiania= " << setprecision(7) <<sredniaszukaj << " s, udalo sie po " <<setprecision(4)<<liczba_prob_szukaj << " probach" << endl;
+		cout << "Sredni czas szukania= " << setprecision(7) <<sredniaszukaj << " s, udalo sie po " <<setprecision(4)<<liczba_prob_szukaj << " probach" << endl;
 
 		procentowo = procentowo + 0.1;	
 	}
