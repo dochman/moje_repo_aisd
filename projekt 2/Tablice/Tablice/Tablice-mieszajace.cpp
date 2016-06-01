@@ -169,17 +169,3 @@ int main()
 	delete[] tab;
 	return 0;
 }
-
-/* wstawianie
-Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.0044 probach
-Sredni czas wstawiania= 0.0000001 s, udalo sie po 1.1149 probach
-Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.2492 probach
-Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.4839 probach
-Sredni czas wstawiania= 0.0000000 s, udalo sie po 1.8053 probach
-Sredni czas wstawiania= 0.0000001 s, udalo sie po 2.3857 probach
-Sredni czas wstawiania= 0.0000000 s, udalo sie po 3.4198 probach
-Sredni czas wstawiania= 0.0000001 s, udalo sie po 5.9712 probach
-Sredni czas wstawiania= 0.0000001 s, udalo sie po 13.9765 probach
-Sredni czas wstawiania= 0.0000004 s, udalo sie po 104.6798 probach
-Aby kontynuowaæ, naciœnij dowolny klawisz . . .
-*/ 
